@@ -82,7 +82,7 @@ static uint32_t keysUp = 0;
 
 static int snesdFd = -1;
 
-static int snesdConnect( const char* socketPath ) {
+int snesdConnect( const char* socketPath ) {
     struct sockaddr_un serverSockAddr;
 
     if ( ( snesdFd = socket( AF_UNIX, SOCK_STREAM, 0 ) ) != -1 ) {
@@ -97,7 +97,7 @@ static int snesdConnect( const char* socketPath ) {
     return -1;
 }
 
-static void snesdDisconnect( void ) {
+void snesdDisconnect( void ) {
     if ( snesdFd != -1 ) {
         close( snesdFd );
         snesdFd = -1;
@@ -111,7 +111,7 @@ static void snesdDisconnect( void ) {
     keysUp = 0;
 }
 
-static int snesdPollKeys( void ) {
+int snesdPollKeys( void ) {
     const uint8_t keyReq = 0x20;
     uint8_t buf[ 2 ];
 
@@ -134,15 +134,15 @@ static int snesdPollKeys( void ) {
     return -1;
 }
 
-static int snesdKeysDown( void ) {
+int snesdKeysDown( void ) {
     return keysDown;
 }
 
-static int snesdKeysHeld( void ) {
+int snesdKeysHeld( void ) {
     return keysHeld;
 }
 
-static int snesdKeysUp( void ) {
+int snesdKeysUp( void ) {
     return keysUp;
 }
 
